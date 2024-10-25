@@ -1,0 +1,82 @@
+
+Introduction to Churn Analysis
+
+In today's competitive business environment, retaining customers is crucial for long-term success. Churn analysis is a key technique used to understand and reduce this customer 
+attrition. It involves examining customer data to identify patterns and reasons behind customer departures. By using advanced data analytics and machine learning, businesses
+can predict which customers are at risk of leaving and understand the factors driving their decisions. This knowledge allows companies to take proactive steps to improve 
+customer satisfaction and loyalty.
+
+
+**Project Target**
+
+1.Create an entire ETL process in a database & a Power BI dashboard to utilize the Customer Data and achieve below goals:
+2.Visualize & Analyse Customer Data at below levels
+3.Demographic
+4.Geographic
+5.Payment & Account Info
+6.Services
+7.Study Churner Profile & Identify Areas for Implementing Marketing Campaigns
+8.Identify a Method to Predict Future Churners
+
+
+**Metrics Required**
+
+1.Total Customers
+2.Total Churn & Churn Rate
+3.New Joiners
+
+**STEP 1 - ETL Process in SQL Server**
+
+So the first step in churn analysis is to load the data from our source file. For this purpose we will be using Microsoft SQL server because it is a widely 
+used solution across the industry and also because a full-fledged Database System is better at handling recurring data loads and maintaining data integrity 
+compared to an excel file.
+
+**Creating Database**
+
+After installation, you will land on the following screen. Do remember to copy paste the server name somewhere because we will need this at a later stage. 
+Also enable the checkbox which says “Trust Server Certificate” and then click on Connect
+Once connected, click on NEW QUERY button at the top ribbon and then write below query. This will create a new Database named db_Churn
+
+	CREATE DATABASE db_Churn
+
+**Data Exploration – Check Distinct Values**
+
+SELECT Gender, Count(Gender) as TotalCount,
+
+Count(Gender)  1.0 / (Select Count() from stg_Churn)  as Percentage
+
+from stg_Churn
+
+Group by Gender
+
+ 
+
+SELECT Contract, Count(Contract) as TotalCount,
+
+Count(Contract)  1.0 / (Select Count() from stg_Churn)  as Percentage
+
+from stg_Churn
+
+Group by Contract
+
+ 
+
+SELECT Customer_Status, Count(Customer_Status) as TotalCount, Sum(Total_Revenue) as TotalRev,
+
+Sum(Total_Revenue) / (Select sum(Total_Revenue) from stg_Churn) * 100  as RevPercentage
+
+from stg_Churn
+
+Group by Customer_Status
+
+ 
+
+SELECT State, Count(State) as TotalCount,
+
+Count(State)  1.0 / (Select Count() from stg_Churn)  as Percentage
+
+from stg_Churn
+
+Group by State
+
+Order by Percentage desc
